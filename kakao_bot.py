@@ -29,7 +29,7 @@ def message():
         img_url = data['content']
         print(img_url)
         
-        urllib.request.urlretrieve(img_url, './test.png')
+        urllib.request.urlretrieve(img_url, './number.png')
       
         result = mnist.mnist()
         
@@ -44,5 +44,4 @@ def message():
         return response
 
 if __name__ == "__main__":
-    #myProcessing._setup_()
     app.run(host="0.0.0.0", port=5000)
