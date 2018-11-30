@@ -3,10 +3,9 @@
 from flask import Flask
 from flask import request
 from flask import jsonify
-import json
+from flask import json
 import urllib.request
 import mnist
-import pickle
 
 app = Flask(__name__)
 
@@ -24,12 +23,10 @@ def keyboard():
 
 @app.route("/message",methods=['GET', 'POST'])
 def message():
-        #data = request.get_json()
         data = json.loads(request.data)
         img_url = data['content']
-        print(img_url)
         
-        urllib.request.urlretrieve(img_url, './test.png')
+        urllib.request.urlretrieve(img_url, './number.png')
       
         result = mnist.mnist()
         
@@ -44,5 +41,4 @@ def message():
         return response
 
 if __name__ == "__main__":
-    #myProcessing._setup_()
     app.run(host="0.0.0.0", port=5000)
