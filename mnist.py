@@ -53,6 +53,10 @@ def mnist():
     if(im[0][0] > 128): #바탕이 흰색에 가까우면 리버스 처리(0 - 검정, 255 - 흰)
         im = reverse(im)
     im = adjust_pixel(im)
+<<<<<<< HEAD
+=======
+    print(im)
+>>>>>>> 05d25dd988027fa1ace9a82e988abea7031c8fd1
     im = np.array(im).astype(np.float32)
 
     im = np.reshape(im, (-1, 784))
