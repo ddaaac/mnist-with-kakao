@@ -4,14 +4,14 @@ from flask import Flask
 from flask import request
 from flask import jsonify
 from flask import json
+import myprocessing, mnist
 import urllib.request
-import mnist
 
 app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    return "Hello World"
+        return "Hello World"
 
 
 @app.route("/keyboard")
@@ -28,7 +28,7 @@ def message():
         
         urllib.request.urlretrieve(img_url, './number.png')
       
-        result = mnist.mnist()
+        result = myprocessing._get_response_()
         
         response ={
                 "message" :{
@@ -41,4 +41,5 @@ def message():
         return response
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+        myprocessing._setup_()
+        app.run(host="0.0.0.0", port=5000)
