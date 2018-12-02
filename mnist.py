@@ -34,12 +34,6 @@ def mnist():
     saver = tf.train.Saver()
     #save_path = saver.save(sess,'./saver/mnist.ckpt') 
     saver.restore(sess, './saver/mnist.ckpt')
-    
-    def adjust_pixel(im):
-        for i in range(28):
-            for j in range(28):
-                im[i,j] = im[i,j] / 255
-        return im
 
     def reverse(im):
         for i in range(28):
@@ -52,7 +46,6 @@ def mnist():
     im = cv2.resize(im, (28,28),interpolation=cv2.INTER_AREA)
     if(im[0][0] > 128): #바탕이 흰색에 가까우면 리버스 처리(0 - 검정, 255 - 흰)
         im = reverse(im)
-    im = adjust_pixel(im)
     im = np.array(im).astype(np.float32)
 
     im = np.reshape(im, (-1, 784))
