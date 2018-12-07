@@ -10,7 +10,6 @@ x = tf.placeholder(tf.float32, [None, 784])
 W = tf.Variable(tf.zeros([784,10]))
 b = tf.Variable(tf.zeros([10]))
 y = tf.nn.softmax(tf.matmul(x, W) + b)
-y__ = tf.nn.softmax(tf.matmul(x, W) + b)
 
 y_ = tf.placeholder(tf.float32, [None, 10])
 
@@ -42,6 +41,10 @@ for img in img_list:
     im = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
     im = im.astype(np.float32)
     im = cv2.resize(im, (28,28),interpolation=cv2.INTER_AREA) #사이즈 
+    if(im[0][0] > 128): #바탕이 흰색에 가까우면 리버스 처리(0 - 검정, 255 - 흰)
+        for i in range(28):
+            for j in range(28):
+                im[i,j] = 255 - im[i,j] 
     data.append([np.array(im)])
 
 
