@@ -21,8 +21,9 @@ init = tf.global_variables_initializer()
 
 sess = tf.Session()
 sess.run(init)
+
 #선행학습
-for i in range(500):
+for i in range(200):
     batch_xs, batch_ys = mnist.train.next_batch(100)
     sess.run(train_step, feed_dict = {x: batch_xs, y_ : batch_ys})
 
@@ -55,7 +56,7 @@ res = sess.run(y, feed_dict = {x: data})
 def print_result(result):
     for f in result:
         for i in range(f.shape[0]):
-            print("%d로 분류될 확률 : %.30f"%(i, f[i]))
+            print("%d(으)로 분류될 확률 : %.2f%%"%(i, 100*f[i]))
 
 print("학습 전 확률은 다음과 같습니다.")
 print_result(res)
