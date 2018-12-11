@@ -1,2 +1,2 @@
-not using kakao.
-show change after training.
+Use console to show result.
+Show change after training.

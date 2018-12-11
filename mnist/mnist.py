@@ -4,7 +4,7 @@ import numpy as np
 import cv2
 import os
 
-mnist = input_data.read_data_sets("./mnist/samples/MNIST_data/", one_hot = True)
+mnist = input_data.read_data_sets("./samples/MNIST_data/", one_hot = True)
 
 x = tf.placeholder(tf.float32, [None, 784])
 W = tf.Variable(tf.zeros([784,10]))
@@ -32,7 +32,7 @@ for i in range(200):
 #saver.restore(sess, './saver/mnist.ckpt')
 
 #이미지 불러오기
-path = './mnist/image/'
+path = './image/'
 img_list = os.listdir(path)
 data = []
 
