@@ -15,7 +15,7 @@ import random
 '''
 
 attri_num = 3  #사용할 속성 수 입력 - 읽어올 수도 있는데 이렇게 직접 쓰면 좀 더 이해가 되지 않을까싶어서 직접 입력하도록 함.
-class_num = 21   #사용할 분류 수 입력 - 마찬가지
+class_num = 7   #사용할 분류 수 입력 - 마찬가지
 
 
 train_data = []
@@ -34,21 +34,9 @@ for idx, col in enumerate(read_file):
     an_attribute_max = float(read_file.loc[maxidx[idx],col]) 
     if (an_attribute_max != 0):
         read_file[col] = read_file[col] / an_attribute_max
-        #read_file[col] = (read_file[col]-mean)/std
-        print(read_file[col])
     attribute_max.append(an_attribute_max) #속성별 최댓값 저장 -> 나중에 test case 입력 받고 그 값들도 나눠줘야되니깐.
-print(attribute_max)
-'''
-#test case의 최대값과 실제 input의 최댓값이 다른 경우
-#예를들어, 테스트 케이스에는 0~95의 값밖에 없는데 실제로는 100이 최대라면 속성별 값의 범위를 다시 설정해줘야함
-if_should_modify_max_attribute = input("각 속성별 최대값이 테스트 케이스와 다른경우가 있나요?(y/n)")
 
-if(if_should_modify_max_attribute == 'y'):
-    for i in range(attri_num):
-        n = input("{}번째 속성의 최댓값 입력(넘어가려면 enter) : ".format(i+1))
-        if(n):
-            attribute_max[i] = float(n)
-'''
+
 #train data와 label 읽어오기
 for idx, row in read_file.iterrows():
     train_data.append(row.values)       #한 케이스에 대하여 속성 값들을 train_data에 추가
@@ -81,37 +69,17 @@ for idx in range(500):
         batch_xs.append(train_data[i])
         batch_ys.append(label_data[i])
     sess.run(train_step, feed_dict = {x: batch_xs, y_ : batch_ys})
-    if(idx < 3):
-        print(sess.run(W))
-
-    '''
-    #테스트용 출력
-    if(idx > 0 and idx < 10):
-        print(idx)
-        print(sess.run(cross_entropy,feed_dict={x:batch_xs, y_ : batch_ys}))
-        print(sess.run(W))
-        print(sess.run(y,feed_dict={x:batch_xs}))
-    '''
 
 #save model
 #saver = tf.train.Saver()
-#save_path = saver.save(sess,'C:\\Users\\Kim BeomJun\\Desktop\\kim\\mnist\\minist_softmax.ckpt' )
-#saver.restore(sess, 'C:\\Users\\Kim BeomJun\\Desktop\\kim\\mnist\\minist_softmax.ckpt')
+#save_path = saver.save(sess,'./saver/save.ckpt')
+#saver.restore(sess,'./saver/save.ckpt')
 
 #test data 입력
 data = []
 a_data = []
 for i in range(attri_num):
-    '''
-    while True:
-        n = int(input("{}번째 속성 값 입력 : ".format(i+1)))
-        if(n > attribute_max[i]):
-            print("다시 입력해주세요")
-        else:
-            break
-    '''
     n = float(input("{}번째 속성 값 입력 : ".format(i+1)))
-    print(n)
     a_data.append(n/attribute_max[i])
 data.append(np.array(a_data))
 
