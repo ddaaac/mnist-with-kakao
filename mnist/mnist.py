@@ -21,15 +21,17 @@ init = tf.global_variables_initializer()
 sess = tf.Session()
 sess.run(init)
 
+'''
 #선행학습
 for i in range(200):
     batch_xs, batch_ys = mnist.train.next_batch(100)
     sess.run(train_step, feed_dict = {x: batch_xs, y_ : batch_ys})
+'''
 
-#save model
-#saver = tf.train.Saver()
-#save_path = saver.save(sess,'./saver/mnist.ckpt' )
-#saver.restore(sess, './saver/mnist.ckpt')
+#학습한 정보 불러오기
+saver = tf.train.Saver()
+#saver.save(sess,'./saver/mnist.ckpt')
+saver.restore(sess, './saver/mnist.ckpt')
 
 #이미지 불러오기
 path = './image/'
@@ -72,6 +74,8 @@ label = np.reshape(label, (-1, 10)).astype(np.float32)
 
 #데이터 학습시키기
 sess.run(train_step, feed_dict = {x:data, y_ : label})
+#학습 후 저장
+saver.save(sess,'./saver/mnist.ckpt')
 
 #학습 후 확률 변화 값 구하기
 res = sess.run(y, feed_dict = {x: data})
