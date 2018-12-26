@@ -14,23 +14,25 @@ import random
 
 '''
 
-attri_num = 3  #사용할 속성 수 입력 - 읽어올 수도 있는데 이렇게 직접 쓰면 좀 더 이해가 되지 않을까싶어서 직접 입력하도록 함.
-class_num = 7   #사용할 분류 수 입력 - 마찬가지
+attri_num = 4  #사용할 속성 수 입력 - 읽어올 수도 있는데 이렇게 직접 쓰면 좀 더 이해가 되지 않을까싶어서 직접 입력하도록 함.
+class_num = 2   #사용할 분류 수 입력 - 마찬가지
 
 
 train_data = []
 label_data = []
 
-read_file = pd.read_csv('./BlackFriday.csv')
-label_read = read_file[['label']].values
-read_file = read_file.drop('label',1)
+
+read_file = pd.read_csv('./weatherAUS.csv', encoding='euc-kr') #파일 읽기
+for col in read_file: #음수값, 결측값 제거
+    read_file = read_file[read_file[col] >= 0]
+read_file = read_file.reset_index(drop=True) #지운 파일들 index 초기화
+label_read = read_file[['label']].values #라벨 읽기
+read_file = read_file.drop('label',1)    #라벨 열 삭제
 
 attribute_max = []
 maxidx = read_file.abs().idxmax()
 #해당 속성이 갖는 최대값으로 나누기 -> 0~1사이로 보정
 for idx, col in enumerate(read_file):
-    mean = read_file[col].values.mean()
-    std = read_file[col].values.std()
     an_attribute_max = float(read_file.loc[maxidx[idx],col]) 
     if (an_attribute_max != 0):
         read_file[col] = read_file[col] / an_attribute_max
