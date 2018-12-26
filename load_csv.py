@@ -10,7 +10,6 @@ import random
     csv 파일 형식 : 행 - 각 테스트 케이스, 열 - 속성
                    첫행 - 분류할 속성의 이름(ex. 수학점수, 영어점수, 국어점수 등)
                    열은 구분 index 없이 바로 속성값을 입력해야함
-                   자세한 건 첨부한 StudentsPerformance.csv 참고
 
 '''
 
